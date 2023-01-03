@@ -239,7 +239,257 @@ public class Calculadora extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         Object source = e.getSource();
 
+        if(source == onRadioButton){
+            enable(); //llamando a la función enable()
+        }
+        else if(source == offRadioButton){
+            disable(); //llamando a la función disable()
+        }
+        else if(source == buttonClear){
+            //limpiando textos de etiquetas y campos de texto
+            label.setText("");
+            textField.setText("");
+        }
+        else if(source == buttonDelete){
+            //Estableciendo funcionalidad para el botón delete
+            int length = textField.getText().length();
+            int number = length - 1;
 
+            if(length > 0){
+                StringBuilder back = new StringBuilder(textField.getText());
+                back.deleteCharAt(number);
+                textField.setText(back.toString());
+            }
+            if(textField.getText().endsWith("")){
+                label.setText("");
+            }
+        }
+        else if(source == buttonZero){
+            if(textField.getText().equals("0")){
+                return;
+            }
+            else{
+                textField.setText(textField.getText() + "0");
+            }
+        }
+        else if(source == buttonOne){
+            textField.setText(textField.getText() + "1");
+        }
+        else if(source == buttonTwo){
+            textField.setText(textField.getText() + "2");
+        }
+        else if(source == buttonThree){
+            textField.setText(textField.getText() + "3");
+        }
+        else if(source == buttonFour){
+            textField.setText(textField.getText() + "4");
+        }
+        else if(source == buttonFive){
+            textField.setText(textField.getText() + "5");
+        }
+        else if(source == buttonSix){
+            textField.setText(textField.getText() + "6");
+        }
+        else if(source == buttonSeven){
+            textField.setText(textField.getText() + "7");
+        }
+        else if(source == buttonEight){
+            textField.setText(textField.getText() + "8");
+        }
+        else if(source == buttonNine){
+            textField.setText(textField.getText() + "9");
+        }
+        else if(source == buttonDot){
+            //botón de coma o punto
+            if(textField.getText().contains(".")){
+                return;
+            }
+            else{
+                textField.setText(textField.getText() + ".");
+            }
+        }
+        else if(source == buttonPlus){
+            //botón de suma
+            String str = textField.getText();
+            numero = Double.parseDouble(textField.getText());
+            textField.setText("");
+            label.setText(str + "+");
+            calculo = 1;
+        }
+        else if(source == buttonMinus){
+            //botón de resta
+            String str = textField.getText();
+            numero = Double.parseDouble(textField.getText());
+            textField.setText("");
+            label.setText(str + "-");
+            calculo = 2;
+        }
+        else if(source == buttonMul){
+            //botón de multiplicación
+            String str = textField.getText();
+            numero = Double.parseDouble(textField.getText());
+            textField.setText("");
+            label.setText(str + "X");
+            calculo = 3;
+        }
+        else if(source == buttonDiv){
+            //botón de division
+            String str = textField.getText();
+            numero = Double.parseDouble(textField.getText());
+            textField.setText("");
+            label.setText(str + "/");
+            calculo = 4;
+        }
+        else if(source == buttonSqrt){
+            //botón raiz cuadrada
+            numero = Double.parseDouble(textField.getText());
+            double sqrt = Math.sqrt(numero);
+            textField.setText(Double.toString(sqrt));
+        }
+        else if(source == buttonSquare){
+            //botón de potencia cuadrada
+            String str = textField.getText();
+            numero = Double.parseDouble(textField.getText());
+            double square = Math.pow(numero, 2);
+            String texto = Double.toString(square);
+            if(texto.endsWith(".0")){
+                textField.setText(texto.replace(".0", ""));
+            }
+            else{
+                textField.setText(texto);
+            }
+            label.setText("(sqrt)" + str);
+        }
+        else if(source == buttonReciprocal){
+            //botón reciproco
+            numero = Double.parseDouble(textField.getText());
+            double reciproco = 1 / numero;
+            String texto = Double.toString(reciproco);
+            if(texto.endsWith(".0")){
+                textField.setText(texto.replace(".0", ""));
+            }
+            else{
+                textField.setText(texto);
+            }
+        }
+        else if(source == buttonEqual){
+            //Estableciendo funcionalidad para el botón igual (=)
+            switch(calculo){
+                case 1:
+                    respuesta = numero + Double.parseDouble(textField.getText());
+                    if(Double.toString(respuesta).endsWith(".0")){
+                        textField.setText(Double.toString(respuesta).replace(".0", ""));
+                    }
+                    else{
+                        textField.setText(Double.toString(respuesta));
+                    }
+                    label.setText("");
+                    break;
+                case 2:
+                    respuesta = numero - Double.parseDouble(textField.getText());
+                    if(Double.toString(respuesta).endsWith(".0")){
+                        textField.setText(Double.toString(respuesta).replace(".0", ""));
+                    }
+                    else{
+                        textField.setText(Double.toString(respuesta));
+                    }
+                    label.setText("");
+                    break;
+                case 3:
+                    respuesta = numero * Double.parseDouble(textField.getText());
+                    if(Double.toString(respuesta).endsWith(".0")){
+                        textField.setText(Double.toString(respuesta).replace(".0", ""));
+                    }
+                    else{
+                        textField.setText(Double.toString(respuesta));
+                    }
+                    label.setText("");
+                    break;
+                case 4:
+                    respuesta = numero / Double.parseDouble(textField.getText());
+                    if(Double.toString(respuesta).endsWith(".0")){
+                        textField.setText(Double.toString(respuesta).replace(".0", ""));
+                    }
+                    else{
+                        textField.setText(Double.toString(respuesta));
+                    }
+                    label.setText("");
+                    break;
+            }
+
+        }
 
     }
+
+    public void enabled(){
+        onRadioButton.setEnabled(false);
+        offRadioButton.setEnabled(true);
+        textField.setEnabled(true);
+        label.setEnabled(true);
+        buttonClear.setEnabled(true);
+        buttonDelete.setEnabled(true);
+        buttonDiv.setEnabled(true);
+        buttonSqrt.setEnabled(true);
+        buttonSquare.setEnabled(true);
+        buttonReciprocal.setEnabled(true);
+        buttonMinus.setEnabled(true);
+        buttonMul.setEnabled(true);
+        buttonEqual.setEnabled(true);
+        buttonDot.setEnabled(true);
+        buttonPlus.setEnabled(true);
+        buttonZero.setEnabled(true);
+        buttonOne.setEnabled(true);
+        buttonTwo.setEnabled(true);
+        buttonThree.setEnabled(true);
+        buttonFour.setEnabled(true);
+        buttonFive.setEnabled(true);
+        buttonSix.setEnabled(true);
+        buttonSeven.setEnabled(true);
+        buttonEight.setEnabled(true);
+        buttonNine.setEnabled(true);
+    }
+
+    public void disable(){
+        onRadioButton.setEnabled(true);
+        offRadioButton.setEnabled(false);
+        textField.setText("");
+        label.setText("");
+        buttonClear.setEnabled(false);
+        buttonDelete.setEnabled(false);
+        buttonDiv.setEnabled(false);
+        buttonSqrt.setEnabled(false);
+        buttonSquare.setEnabled(false);
+        buttonReciprocal.setEnabled(false);
+        buttonMinus.setEnabled(false);
+        buttonMul.setEnabled(false);
+        buttonEqual.setEnabled(false);
+        buttonDot.setEnabled(false);
+        buttonPlus.setEnabled(false);
+        buttonZero.setEnabled(false);
+        buttonOne.setEnabled(false);
+        buttonTwo.setEnabled(false);
+        buttonThree.setEnabled(false);
+        buttonFour.setEnabled(false);
+        buttonFive.setEnabled(false);
+        buttonSix.setEnabled(false);
+        buttonSeven.setEnabled(false);
+        buttonEight.setEnabled(false);
+        buttonNine.setEnabled(false);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
